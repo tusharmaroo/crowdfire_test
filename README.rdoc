@@ -1,28 +1,26 @@
-== README
+# Crowdfire
+Enter your Twitter User ID / User Name and find optimal time for you to put up a post on Twitter, where you will get maximum traction.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Requirements
+Ruby 2.2.2
+Rails 4.2.2
 
-Things you may want to cover:
+## How to Run Locally
+1. Clone the Repository
+2. Create an application in twitter
+3. Put up below values in `app/services/twitter_service.rb`
 
-* Ruby version
+  consumer_token = ''
 
-* System dependencies
+  consumer_secret = ''
 
-* Configuration
+  access_token = ''
 
-* Database creation
+  access_secret = ''
 
-* Database initialization
+3. gem install bundle
+4. bundle install
+5. rails s
+6. visit localhost:3000 in your browser.
+7. This is it.
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
