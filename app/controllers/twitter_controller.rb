@@ -22,7 +22,7 @@ class TwitterController < ApplicationController
       begin
         @api_obj = TwitterService.new
         rescue
-          Rails.logger.info "fsdfsfdf"
+          Rails.logger.info "Error: Not able to create Twitter Service instance"
         end
     end
 

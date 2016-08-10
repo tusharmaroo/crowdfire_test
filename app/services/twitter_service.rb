@@ -18,8 +18,7 @@ class TwitterService
   end
 
   def populate_hash_for_relevant_tweets(tweet_hash, tweets, from_time, to_time)
-      Rails.logger.info "i am in here"
-      begin
+
     tweets.each do |tweet|
       created_at = Time.parse(tweet.attrs[:created_at])
       if created_at > from_time && created_at <= to_time
@@ -29,12 +28,8 @@ class TwitterService
         tweet_hash['hour'][hour] += 1
       end
     end
-  rescue
-        Rails.logger.info "DSCSDCDC"
-        # break
-      end
 
-    Rails.logger.info "#{calculate_best_day_to_post(tweet_hash)}  #{calculate_best_time_to_post(tweet_hash)}"
+    #Rails.logger.info "#{calculate_best_day_to_post(tweet_hash)}  #{calculate_best_time_to_post(tweet_hash)}"
     return calculate_best_day_to_post(tweet_hash), calculate_best_time_to_post(tweet_hash)
   end
 
@@ -54,7 +49,6 @@ class TwitterService
         tweets << @client.user_timeline(id, options)
       rescue Twitter::Error::TooManyRequests => error
         Rails.logger.info "Too Many Requests: Failed for user_id: #{id}"
-        # break
       end
     end
   end
