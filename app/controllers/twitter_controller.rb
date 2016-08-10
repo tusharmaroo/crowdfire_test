@@ -10,9 +10,10 @@ class TwitterController < ApplicationController
     if params[:username].present? || params[:userid].present?
       user_reference = params[:username] || params[:userid]
       begin
-        @best_day_to_tweet, @best_time_to_tweet = @api_obj.calculate_best_tweet_time(user_reference)
+        @best_time_to_tweet, @best_day_to_tweet = @api_obj.calculate_best_tweet_time(user_reference)
       rescue
         Rails.logger.info "Tech Issue: Current Time: #{Time.zone.now}, user_reference: #{user_reference}"
+        redirect_to root_url
       end
     end
   end

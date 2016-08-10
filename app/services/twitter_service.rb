@@ -18,7 +18,6 @@ class TwitterService
   end
 
   def populate_hash_for_relevant_tweets(tweet_hash, tweets, from_time, to_time)
-
     tweets.each do |tweet|
       created_at = Time.parse(tweet.attrs[:created_at])
       if created_at > from_time && created_at <= to_time
@@ -34,11 +33,13 @@ class TwitterService
   end
 
   def calculate_best_time_to_post(tweet_hash)
-    Date::DAYNAMES[tweet_hash['day'].max_by{|k,v| v}[0]]
+    # Fallback included if nothing is found
+    Date::DAYNAMES[tweet_hash['day'].max_by{|k,v| v}[0] || Time.zone.now.wday]
   end
 
   def calculate_best_day_to_post(tweet_hash)
-    tweet_hash['hour'].max_by{|k,v| v}[0].to_s + " o'clock"
+    # Fallback included if nothing is found
+    (tweet_hash['hour'].max_by{|k,v| v}[0] || Time.zone.now.hour).to_s + " o'clock"
   end
 
   def get_tweets(user_ids = [])
@@ -46,11 +47,12 @@ class TwitterService
     tweets = []
     user_ids.each do |id|
       begin
-        tweets << @client.user_timeline(id, options)
+        @client.user_timeline(id, options).each { |tweet| tweets << tweet }
       rescue Twitter::Error::TooManyRequests => error
         Rails.logger.info "Too Many Requests: Failed for user_id: #{id}"
       end
     end
+    return tweets
   end
 
   def fetch_follower_ids(username, count = 10)
