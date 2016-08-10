@@ -1,0 +1,9 @@
+<div style="text-align: center;vertical-align: middle;line-height: 50px;">
+<%= form_tag("/result", method: "post", class: "form-inline" )do %>
+<div class="form-group">
+  <label for="username">Username / UserID</label>
+  <input type="text" class="form-control" name="username" placeholder="Enter Username or UserID" required>
+</div>
+<button type="submit" class="btn btn-danger">Submit</button>
+<% end %>
+</div>
